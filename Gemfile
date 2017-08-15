@@ -8,6 +8,7 @@ end
 gem 'simplecov', :require => false, :group => :test
 
 gem 'rspec-rails'
+gem 'active_model_serializers'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.3'
 # Use postgresql as the database for Active Record
@@ -33,6 +34,7 @@ group :development, :test do
   gem 'pry'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
+  gem 'simplecov', :require => false, :group => :test
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end

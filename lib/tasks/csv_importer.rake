@@ -3,14 +3,18 @@ require 'csv'
 namespace :csv_importer do
   desc "imports all of the CSV's and creates corresponding records"
   task import_customers: :environment do
+<<<<<<< HEAD
     puts "Hello"
 
+=======
+>>>>>>> development
     customers = CSV.open "./lib/data/customers.csv",
                 headers: true,
                 header_converters: :symbol
     customers.each do |row|
       row = row.to_h
       Customer.create!(row)
+<<<<<<< HEAD
       # puts "#{row}"
     end
   end
@@ -48,6 +52,20 @@ namespace :csv_importer do
       row = row.to_h
       InvoiceItem.create!(row)
       # puts "#{row}"
+=======
+      puts "#{row}"
+>>>>>>> development
+    end
+  end
+
+  task import_merchants: :environment do
+    merchants = CSV.open "./lib/data/merchants.csv",
+                headers: true,
+                header_converters: :symbol
+
+    merchants.each do |row|
+      Merchant.create!(row.to_h)
+      puts row
     end
   end
 end

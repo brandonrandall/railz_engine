@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20170815194634) do
+=======
+ActiveRecord::Schema.define(version: 20170815192453) do
+>>>>>>> development
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +26,7 @@ ActiveRecord::Schema.define(version: 20170815194634) do
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
   create_table "invoice_items", force: :cascade do |t|
     t.bigint "item_id"
     t.bigint "invoice_id"
@@ -46,10 +51,17 @@ ActiveRecord::Schema.define(version: 20170815194634) do
     t.string "name"
     t.string "description"
     t.integer "unit_price"
+=======
+  create_table "merchants", force: :cascade do |t|
+    t.string "name"
+>>>>>>> development
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
   add_foreign_key "invoice_items", "invoices"
   add_foreign_key "invoice_items", "items"
+=======
+>>>>>>> development
 end

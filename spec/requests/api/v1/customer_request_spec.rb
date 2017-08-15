@@ -36,4 +36,16 @@ RSpec.describe 'Customer API' do
     expect(customer['first_name']).to eq(customers.first.first_name)
     expect(customer['last_name']).to eq(customers.first.last_name)
   end
+
+  it "can find a single customer by last_name" do
+    customers = create_list(:customer, 3)
+
+    get '/api/v1/customers/find', params: {last_name: customers.first.last_name}
+
+    customer = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(customer['first_name']).to eq(customers.first.first_name)
+    expect(customer['last_name']).to eq(customers.first.last_name)
+  end
 end

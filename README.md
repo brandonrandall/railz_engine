@@ -1,13 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Dependencies
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
+This project is using:
+    - Rails 5.1.2
+    - PostgreSQL
+    - Ruby 2.4.1
 
 * Configuration
 

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get 'customers/find_all', to: 'customers/search#index'
       get 'customers/random', to: 'customers/random#show'
       resources :customers, only: [:index, :show]
+      resources :merchants, only: [:index]
     end
   end
 end

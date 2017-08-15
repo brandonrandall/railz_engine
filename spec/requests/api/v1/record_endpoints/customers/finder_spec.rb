@@ -50,4 +50,17 @@ RSpec.describe 'Customer API Finders' do
     expect(customers.count).to eq(3)
     expect(customers.first['first_name']).to eq('Bob')
   end
+
+  it "can return all matching customers by last_name" do
+    create_list(:customer, 3, last_name: 'Johnson')
+    create(:customer, last_name: 'Smith')
+
+    get '/api/v1/customers/find_all', params: {last_name: 'Johnson'}
+
+    customers = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(customers.count).to eq(3)
+    expect(customers.first['last_name']).to eq('Johnson')
+  end
 end

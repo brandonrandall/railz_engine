@@ -5,7 +5,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+
 gem 'rspec-rails'
+gem 'active_model_serializers'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.3'
 # Use postgresql as the database for Active Record
@@ -26,6 +28,11 @@ gem 'puma', '~> 3.7'
 # gem 'rack-cors'
 
 group :development, :test do
+  gem 'faker'
+  gem 'database_cleaner'
+  gem 'pry'
+  gem 'shoulda-matchers'
+  gem 'factory_girl_rails'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end

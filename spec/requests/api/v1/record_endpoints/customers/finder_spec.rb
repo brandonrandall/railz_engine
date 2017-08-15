@@ -35,10 +35,9 @@ RSpec.describe 'Customer API Finders' do
     expect(response).to be_success
     expect(customer['first_name']).to eq(customer_1.first_name)
     expect(customer['last_name']).to eq(customer_1.last_name)
-    expect(customer['created_at'].to_datetime).to eq(customer_1.created_at)
   end
 
-  it "can return all matching customers by first_name" do
+  it "can find all matching customers by first_name" do
     create_list(:customer, 3, first_name: 'Bob')
     create(:customer, first_name: 'John')
 
@@ -51,7 +50,7 @@ RSpec.describe 'Customer API Finders' do
     expect(customers.first['first_name']).to eq('Bob')
   end
 
-  it "can return all matching customers by last_name" do
+  it "can find all matching customers by last_name" do
     create_list(:customer, 3, last_name: 'Johnson')
     create(:customer, last_name: 'Smith')
 
@@ -62,5 +61,21 @@ RSpec.describe 'Customer API Finders' do
     expect(response).to be_success
     expect(customers.count).to eq(3)
     expect(customers.first['last_name']).to eq('Johnson')
+  end
+
+  it "can find all matching customers by created_at" do
+    created = create_list(:customer, 3, created_at: "2012-03-27 14:58:15")
+    create(:customer, created_at: "2013-03-27 14:58:15")
+
+    get '/api/v1/customers/find_all', params: {created_at: "2012-03-27 14:58:15"}
+
+    customers = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(customers.count).to eq(3)
+    customers.each_with_index do |customer, index|
+      expect(customer['first_name']).to eq(created[index].first_name)
+      expect(customer['last_name']).to eq(created[index].last_name)
+    end
   end
 end

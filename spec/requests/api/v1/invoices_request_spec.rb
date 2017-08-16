@@ -13,9 +13,7 @@ describe "Invoices API" do
 
     expect(invoices.count).to eq(3)
     expect(invoice).to have_key("id")
-    expect(invoice).to have_key("name")
-    expect(invoice).to have_key("description")
-    expect(invoice).to have_key("unit_price")
+    expect(invoice).to have_key("status")
   end
 
   it "can get one invoice by id" do

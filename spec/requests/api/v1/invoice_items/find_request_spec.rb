@@ -22,14 +22,16 @@ RSpec.describe "Invoices Items find API" do
       expect(response).to be_success
 
       invoice_item = JSON.parse(response.body)
-
       expect(invoice_item["id"]).to eq(invoice_items.first.id)
     end
 
     it "can find invoice items by unit price" do
       invoice_items = create_list(:invoice_item, 3)
-      unit_price= "1.20"
+
+      unit_price= invoice_items.first.unit_price
+
       get "/api/v1/invoice_items/find?unit_price=#{unit_price}"
+
       expect(response).to be_success
 
       invoice_item = JSON.parse(response.body)
@@ -38,7 +40,7 @@ RSpec.describe "Invoices Items find API" do
     end
 
     it "can find invoice items by created_at" do
-      invoice_items = create_list(:invoice_item, 3)
+      invoice_items = create_list(:invoice_item, 3, created_at: "2012-03-27 14:54:09 UTC")
 
       get "/api/v1/invoice_items/find?created_at=#{invoice_items.first.created_at}"
 
@@ -50,7 +52,7 @@ RSpec.describe "Invoices Items find API" do
     end
 
     it "can find invoice items by updated_at" do
-      invoice_items = create_list(:invoice_item, 3)
+      invoice_items = create_list(:invoice_item, 3, updated_at: "2012-03-27 14:54:09 UTC")
 
       get "/api/v1/invoice_items/find?updated_at=#{invoice_items.first.updated_at}"
 
@@ -92,7 +94,7 @@ RSpec.describe "Invoices Items find API" do
 
       invoice_items = JSON.parse(response.body)
 
-      expect(invoice_items.count).to eq(3)
+      expect(invoice_items.count).to eq(2)
 
     end
 
@@ -102,14 +104,14 @@ RSpec.describe "Invoices Items find API" do
       invoice_item_1 = InvoiceItem.create(quantity: 1, unit_price: 500, created_at: "2017-05-01 18:06:59", updated_at: "2017-05-01 18:06:59", item_id: 1, invoice_id: 1)
       invoice_item_2 = InvoiceItem.create(quantity: 1, unit_price: 500, created_at: "2017-05-01 18:06:59", updated_at: "2017-05-01 18:06:59", item_id: 1, invoice_id: 1)
       invoice_item_3 = InvoiceItem.create(quantity: 1, unit_price: 1400, created_at: "2017-05-01 18:06:59", updated_at: "2017-05-01 18:06:59", item_id: 1, invoice_id: 1)
-      unit_price = "12.00"
+      unit_price = "5.00"
       get "/api/v1/invoice_items/find_all?unit_price=#{unit_price}"
 
       expect(response).to be_success
 
       invoice_items = JSON.parse(response.body)
 
-      expect(invoice_items.count).to eq(3)
+      expect(invoice_items.count).to eq(2)
 
     end
 
@@ -126,16 +128,16 @@ RSpec.describe "Invoices Items find API" do
 
       invoice_items = JSON.parse(response.body)
 
-      expect(invoice_items.count).to eq(3)
+      expect(invoice_items.count).to eq(2)
 
     end
 
     it "can find all invoice items by updated_at" do
       item = create(:item, id: 1)
       invoice = create(:invoice, id: 1)
-      invoice_item_1 = InvoiceItem.create(quantity: 1, unit_price: 500, created_at: "2017-05-01 18:06:59", updated_at: "2017-05-01 18:06:59", item_id: 1, invoice_id: 1)
-      invoice_item_2 = InvoiceItem.create(quantity: 1, unit_price: 500, created_at: "2017-05-01 18:06:59", updated_at: "2017-05-01 18:06:59", item_id: 1, invoice_id: 1)
-      invoice_item_3 = InvoiceItem.create(quantity: 1, unit_price: 500, created_at: "2017-05-01 18:06:59", updated_at: "2017-05-03 18:06:59", item_id: 1, invoice_id: 1)
+      invoice_item_1 = InvoiceItem.create!(quantity: 1, unit_price: 500, created_at: "2017-05-01 18:06:59", updated_at: "2017-05-01 18:06:59", item_id: 1, invoice_id: 1)
+      invoice_item_2 = InvoiceItem.create!(quantity: 1, unit_price: 500, created_at: "2017-05-01 18:06:59", updated_at: "2017-05-01 18:06:59", item_id: 1, invoice_id: 1)
+      invoice_item_3 = InvoiceItem.create!(quantity: 1, unit_price: 500, created_at: "2017-05-03 18:06:59", updated_at: "2017-05-01 18:06:59", item_id: 1, invoice_id: 1)
 
       get "/api/v1/invoice_items/find_all?updated_at=#{invoice_item_1.updated_at}"
 

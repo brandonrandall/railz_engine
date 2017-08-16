@@ -16,7 +16,7 @@ RSpec.describe "Invoices find API" do
 
     it "can find invoice by status" do
       invoices = create_list(:invoice, 3)
-
+# binding.pry
       get "/api/v1/invoices/find?status=#{invoices.first.status}"
 
       expect(response).to be_success
@@ -27,7 +27,7 @@ RSpec.describe "Invoices find API" do
     end
 
     it "can find invoice by created at" do
-      invoices = create_list(:invoice, 3)
+      invoices = create_list(:invoice, 3, created_at: "2012-03-25 09:54:09 UTC")
 
       get "/api/v1/invoices/find?created_at=#{invoices.first.created_at}"
 
@@ -39,7 +39,7 @@ RSpec.describe "Invoices find API" do
     end
 
     it "can find invoice by updated at" do
-      invoices = create_list(:invoice, 3)
+      invoices = create_list(:invoice, 3, updated_at: "2012-03-25 09:54:09 UTC")
 
       get "/api/v1/invoices/find?updated_at=#{invoices.first.updated_at}"
 
@@ -64,7 +64,7 @@ RSpec.describe "Invoices find API" do
       expect(invoice.first["id"]).to eq(invoices.first.id)
     end
 
-    xit "can find all invoices by status" do
+    it "can find all invoices by status" do
       create(:merchant, id: 1)
       create(:customer, id: 1)
       invoice1 = Invoice.create(status: "shipped", created_at: "2017-05-01 18:06:59", updated_at: "2017-05-01 18:06:59", customer_id: 1, merchant_id: 1)
@@ -80,16 +80,9 @@ RSpec.describe "Invoices find API" do
 
       expect(invoices.count).to eq(2)
 
-      get "/api/v1/invoices/find_all?status=#{invoice1.status.upcase}"
-
-      expect(response).to be_success
-
-      invoices = JSON.parse(response.body)
-
-      expect(invoices.count).to eq(2)
     end
 
-    xit "can find all invoices by created_at" do
+    it "can find all invoices by created_at" do
       create(:merchant, id: 1)
       create(:customer, id: 1)
       invoice1 = Invoice.create(status: "shipped", created_at: "2017-05-01 18:06:59", updated_at: "2017-05-01 18:06:59", customer_id: 1, merchant_id: 1)
@@ -106,7 +99,7 @@ RSpec.describe "Invoices find API" do
       expect(invoices.first["id"]).to eq(invoice1.id)
     end
 
-    xit "can find all invoices by updated at" do
+    it "can find all invoices by updated at" do
       create(:merchant, id: 1)
       create(:customer, id: 1)
       invoice1 = Invoice.create(status: "shipped", created_at: "2017-05-01 18:06:59", updated_at: "2017-05-01 18:06:59", customer_id: 1, merchant_id: 1)

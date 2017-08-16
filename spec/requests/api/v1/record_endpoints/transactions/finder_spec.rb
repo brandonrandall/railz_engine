@@ -23,8 +23,26 @@ RSpec.describe 'Transaction API Finder' do
     expect(transaction['credit_card_number']).to eq(transaction_1.credit_card_number)
   end
 
-  it "can find " do
+  it "can find a transaction by invoice_id" do
+    transactions = create_list(:transaction, 3)
 
+    get '/api/v1/transactions/find', params: {invoice_id: transactions[0].invoice_id}
+
+    transaction = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(transaction['invoice_id']).to eq(transactions[0].invoice_id)
+  end
+
+  it "can find a transaction by result" do
+    transactions = create_list(:transaction, 3)
+
+    get '/api/v1/transactions/find', params: {result: transactions[0].result}
+
+    transaction = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(transaction['result']).to eq(transactions[0].result)
   end
 
   it "can find all matching transactions by credit_card_number" do
@@ -37,7 +55,7 @@ RSpec.describe 'Transaction API Finder' do
 
     expect(response).to be_success
     expect(transactions.count).to eq(3)
-    expect(transactions.first['credit_card_number']).to eq("199291923")
+    expect(transactions.first['credit_card_number']).to eq(199291923)
   end
 
   it "can find all matching transactions by created_at" do

@@ -29,6 +29,7 @@ namespace :csv_importer do
     invoices.each do |row|
       row = row.to_h
       Invoice.create!(row)
+      puts row
     end
   end
 
@@ -49,6 +50,17 @@ namespace :csv_importer do
 
     merchants.each do |row|
       Merchant.create!(row.to_h)
+    end
+  end
+
+  task import_transactions: :environment do
+    transactions = CSV.open "./lib/data/transactions.csv",
+                headers: true,
+                header_converters: :symbol
+
+    transactions.each do |row|
+      Transaction.create!(row.to_h)
+      puts row
     end
   end
 end

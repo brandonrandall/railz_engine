@@ -3,5 +3,8 @@ FactoryGirl.define do
     name "Invoice one"
     description "holds the price"
     unit_price 1
+
+    customer
+    merchant
   end
 end

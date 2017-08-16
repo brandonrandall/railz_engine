@@ -29,6 +29,7 @@ namespace :csv_importer do
     invoices.each do |row|
       row = row.to_h
       Invoice.create!(row)
+      puts row
     end
   end
 
@@ -59,6 +60,7 @@ namespace :csv_importer do
 
     transactions.each do |row|
       Transaction.create!(row.to_h)
+      puts row
     end
   end
 end

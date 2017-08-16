@@ -48,7 +48,7 @@ RSpec.describe "Items find API" do
       expect(item["id"]).to eq(items.first.id)
     end
 #
-  xit "can find all items by created_at" do
+  it "can find all items by created_at" do
     create(:merchant, id: 1)
     item1 = Item.create(name: "item1", description: "This is item 1", unit_price: 1200, created_at: "2017-05-01 18:06:59", updated_at: "2017-05-01 18:06:59", merchant_id: 1)
     item2 = Item.create(name: "item1", description: "This is item 2", unit_price: 1200, created_at: "2017-05-01 18:06:59", updated_at: "2017-05-01 18:06:59", merchant_id: 1)

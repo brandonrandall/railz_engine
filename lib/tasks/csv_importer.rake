@@ -51,4 +51,14 @@ namespace :csv_importer do
       Merchant.create!(row.to_h)
     end
   end
+
+  task import_transactions: :environment do
+    transactions = CSV.open "./lib/data/transactions.csv",
+                headers: true,
+                header_converters: :symbol
+
+    transactions.each do |row|
+      Transaction.create!(row.to_h)
+    end
+  end
 end

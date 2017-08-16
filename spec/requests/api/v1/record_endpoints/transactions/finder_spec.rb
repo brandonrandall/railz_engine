@@ -55,7 +55,7 @@ RSpec.describe 'Transaction API Finder' do
 
     expect(response).to be_success
     expect(transactions.count).to eq(3)
-    expect(transactions.first['credit_card_number']).to eq(199291923)
+    expect(transactions.first['credit_card_number']).to eq("199291923")
   end
 
   it "can find all matching transactions by created_at" do

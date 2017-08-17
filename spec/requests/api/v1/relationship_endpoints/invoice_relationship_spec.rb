@@ -60,4 +60,16 @@ RSpec.describe 'Invoice Relationship Endpoints' do
     expect(response).to be_success
     expect(result['name']).to eq(merchant.name)
   end
+
+  it "can find the associated customer" do
+    customer = create(:customer)
+    invoice = create(:invoice, customer_id: customer.id)
+
+    get "/api/v1/invoices/#{invoice.id}/customer"
+
+    result = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(result['first_name']).to eq(customer.first_name)
+  end
 end

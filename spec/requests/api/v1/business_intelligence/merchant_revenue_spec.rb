@@ -18,4 +18,22 @@ RSpec.describe 'Merchant API Revenue' do
 
     expect(result['revenue']).to eq("1.08")
   end
+
+  it "returns the total revenue by date" do
+    merchant = create(:merchant)
+    successful_transactions = create_list(:transaction, 3, result: 'success')
+    failed_transactions = create_list(:transaction, 2, result: 'failed')
+    invoice = create(:invoice, merchant_id: merchant.id, created_at: "2012-03-16 11:55:05")
+    invoice2 = create(:invoice, merchant_id: merchant.id)
+    invoice.transactions << successful_transactions
+    invoice2.transactions << failed_transactions
+    invoice.invoice_items << create_list(:invoice_item, 3, quantity: 3, unit_price: 400)
+    invoice2.invoice_items << create_list(:invoice_item, 3, quantity: 3, unit_price: 400)
+
+    get "/api/v1/merchants/#{merchant.id}/revenue", params: {date: "2012-03-16 11:55:05"}
+
+    result = JSON.parse(response.body)
+
+    expect(result['revenue']).to eq("1.08")
+  end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-descritb "Merchants API" do
+describe "Merchants API" do
   it "can return associated invoices" do
     merchant = create(:merchant)
     create_list(:invoice, 4, merchant_id: merchant.id)

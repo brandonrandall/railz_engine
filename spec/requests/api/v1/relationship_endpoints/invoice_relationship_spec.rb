@@ -30,4 +30,22 @@ RSpec.describe 'Invoice Relationship Endpoints' do
       expect(invoice_item['invoice_id']).to eq(invoice.id)
     end
   end
+
+  it "can find the associated items" do
+    invoice = create(:invoice, :with_invoice_items, invoice_item_count: 3)
+    other_item = create(:item)
+
+    get "/api/v1/invoices/#{invoice.id}/items"
+
+    result = JSON.parse(response.body)
+
+    item_ids = result.map do |item|
+      item["id"]
+    end
+
+    expect(response).to be_success
+    expect(result.count).to eq(3)
+    expect(item_ids).to include(invoice.items.first.id)
+    expect(item_ids).to_not include(other_item.id)
+  end
 end

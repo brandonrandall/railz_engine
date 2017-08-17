@@ -48,4 +48,16 @@ RSpec.describe 'Invoice Relationship Endpoints' do
     expect(item_ids).to include(invoice.items.first.id)
     expect(item_ids).to_not include(other_item.id)
   end
+
+  it "can find the associated merchant" do
+    merchant = create(:merchant)
+    invoice = create(:invoice, merchant_id: merchant.id)
+
+    get "/api/v1/invoices/#{invoice.id}/merchant"
+
+    result = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(result['name']).to eq(merchant.name)
+  end
 end

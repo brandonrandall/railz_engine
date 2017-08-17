@@ -63,4 +63,14 @@ namespace :csv_importer do
       puts row
     end
   end
+
+  task all: [:environment,
+            :import_customers,
+            :import_merchants,
+            :import_items,
+            :import_invoices,
+            :import_transactions,
+            :import_invoice_items] do
+    puts "seed it"
+  end
 end

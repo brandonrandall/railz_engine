@@ -5,7 +5,8 @@ class Item < ApplicationRecord
     belongs_to :merchant
 
     belongs_to :merchant
-
+    before_save :set_unit_price
+  
     def best_day
       invoices
         .select('invoices.*, sum(invoice_items.quantity) AS purchases')
@@ -23,5 +24,10 @@ class Item < ApplicationRecord
         .group(:id)
         .order('num_sold DESC')
         .limit(quantity)
+
+    private
+
+    def set_unit_price
+      self.unit_price = self.unit_price/100
     end
 end

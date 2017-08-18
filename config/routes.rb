@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
   #NEED TO DO THE LONGHAND NAMESPACING TOO!
   namespace :api do
     namespace :v1 do
@@ -46,10 +45,12 @@ Rails.application.routes.draw do
         get 'find', to: 'search#show'
         get 'find_all', to: 'search#index'
         get 'random', to: 'random#show'
+        get '/most_items', to: 'most_items#index'
         get 'most_reveune', to: 'most_revenue#index'
         get "/:id/items", to: 'items#index'
         get "/:id/invoices", to: 'invoices#index'
         get '/:id/revenue', to: 'revenue#show'
+        get '/:id/favorite_customer', to: 'favorite_customer#show'
       end
 
       namespace :transactions do

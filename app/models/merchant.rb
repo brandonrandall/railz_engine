@@ -1,8 +1,16 @@
 class Merchant < ApplicationRecord
   validates :name, presence: true
-
   has_many :items
   has_many :invoices
+
+  def self.most_items(quantity = nil)
+    select('merchants.*, sum(invoice_items.quantity) AS item_count')
+      .joins(invoices: [:invoice_items, :transactions])
+      .merge(Transaction.successful)
+      .group(:id)
+      .order('item_count DESC')
+      .limit(quantity)
+  end
 
   def total_revenue
     invoices
@@ -17,5 +25,14 @@ class Merchant < ApplicationRecord
       .merge(Transaction.successful)
       .where(invoices: {created_at: date})
       .sum('invoice_items.unit_price * invoice_items.quantity')
+  end
+
+  def favorite_customer
+    Customer.joins(:transactions)
+            .merge(Transaction.successful)
+            .where(invoices: {merchant_id: id})
+            .group('customers.id')
+            .order("count(customers.id) desc")
+            .first
   end
 end

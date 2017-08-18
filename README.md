@@ -10,9 +10,7 @@ In order to run this on your local machine you must have the following installed
 
 ## To set up the API locally:
 
-In Terminal
-- Make a directory to hold the directories of this project (it includes the sample data).
-- Clone this repo into that directory
+- Clone down this repo
 - `cd railz_engine`
 - `bundle install`
 - Set up the database by running `rake db:{create,migrate}`

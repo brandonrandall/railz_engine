@@ -42,11 +42,11 @@ Rails.application.routes.draw do
         get 'find', to: 'search#show'
         get 'find_all', to: 'search#index'
         get 'random', to: 'random#show'
-        get 'most_reveune', to: 'most_revenue#index'
         get "/:id/items", to: 'items#index'
         get "/:id/invoices", to: 'invoices#index'
         get '/:id/revenue', to: 'revenue#show'
         get '/:id/favorite_customer', to: 'favorite_customer#show'
+        get '/most_revenue', to: 'most_revenue#index'
       end
 
       namespace :transactions do

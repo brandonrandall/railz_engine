@@ -5,11 +5,11 @@ class Item < ApplicationRecord
     belongs_to :merchant
 
     belongs_to :merchant
-    # before_save :set_unit_price
+    before_save :set_unit_price
 
-    # private
+    private
 
-    # def set_unit_price
-    #   self.unit_price = self.unit_price/100
-    # end
+    def set_unit_price
+      self.unit_price = self.unit_price/100
+    end
 end

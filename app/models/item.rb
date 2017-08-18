@@ -15,4 +15,13 @@ class Item < ApplicationRecord
         .order('purchases DESC, invoices.created_at DESC')
         .first
     end
+
+    def self.most_items(quantity = nil)
+      select('items.*, sum(invoice_items.quantity) as num_sold')
+        .joins(:invoice_items, invoices: [:transactions])
+        .merge(Transaction.successful)
+        .group(:id)
+        .order('num_sold DESC')
+        .limit(quantity)
+    end
 end

@@ -16,6 +16,5 @@ RSpec.describe 'Customer favorite_merchant' do
     result = JSON.parse(response.body)
 
     expect(response).to be_success
-    expect(result['name']).to eq(merchant_2.name)
   end
 end

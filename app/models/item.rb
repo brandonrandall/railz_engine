@@ -4,9 +4,8 @@ class Item < ApplicationRecord
     has_many :invoices, -> { distinct }, through: :invoice_items
     belongs_to :merchant
 
-    belongs_to :merchant
     before_save :set_unit_price
-  
+
     def best_day
       invoices
         .select('invoices.*, sum(invoice_items.quantity) AS purchases')
@@ -24,6 +23,7 @@ class Item < ApplicationRecord
         .group(:id)
         .order('num_sold DESC')
         .limit(quantity)
+    end
 
     private
 

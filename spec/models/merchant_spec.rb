@@ -5,6 +5,11 @@ RSpec.describe Merchant, type: :model do
     it {is_expected.to validate_presence_of(:name)}
   end
 
+  describe 'associations' do
+    it {is_expected.to have_many(:items)}
+    it {is_expected.to have_many(:invoices)}
+  end
+
   describe 'instance methods' do
     describe '#total_revenue' do
       it "returns total revenue for successful transactions" do

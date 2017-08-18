@@ -22,7 +22,6 @@ describe 'Merchant items' do
     create_list(:item, 3, merchant_id: merchant.id)
 
     get "/api/v1/merchants/#{merchant.id}/items"
-    # binding.pry
 
     items = JSON.parse(response.body)
 

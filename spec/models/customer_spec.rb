@@ -7,6 +7,11 @@ RSpec.describe Customer, type: :model do
     it{is_expected.to validate_presence_of(:last_name)}
   end
 
+  describe 'associations' do
+    it {is_expected.to have_many(:invoices)}
+    it {is_expected.to have_many(:transactions).through(:invoices)}
+  end
+
   describe 'instance methods' do
     describe '#favorite_merchant' do
       it "returns the merchant where the customer has conducted the most successful transactions" do

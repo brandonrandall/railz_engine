@@ -16,7 +16,7 @@ RSpec.describe "Invoices find API" do
 
     it "can find invoice by status" do
       invoices = create_list(:invoice, 3)
-# binding.pry
+
       get "/api/v1/invoices/find?status=#{invoices.first.status}"
 
       expect(response).to be_success

@@ -9,7 +9,6 @@ describe 'Customers API' do
 
     transactions = JSON.parse(response.body)
 
-    # binding.pry
     expect(response).to be_success
     expect(transactions).to be_a(Array)
     expect(transactions.count).to eq(6)

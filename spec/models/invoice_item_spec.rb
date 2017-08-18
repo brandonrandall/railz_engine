@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe InvoiceItem, type: :model do
-  # pending "add some examples to (or delete) #{__FILE__}"
+  describe 'associations' do
+    it {is_expected.to belong_to(:invoice)}
+    it {is_expected.to belong_to(:item)}
+  end
 end

@@ -26,6 +26,5 @@ describe "Invoices API" do
 
     expect(response).to be_success
     expect(invoice_item).to have_key("id")
-    # expect(invoice_item["id"]).to eq(id)
   end
 end

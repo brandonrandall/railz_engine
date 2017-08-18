@@ -40,6 +40,7 @@ namespace :csv_importer do
     invoice_items.each do |row|
       row = row.to_h
       InvoiceItem.create!(row)
+      puts row
     end
   end
 

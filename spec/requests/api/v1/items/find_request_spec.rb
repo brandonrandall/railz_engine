@@ -35,11 +35,10 @@ RSpec.describe "Items find API" do
 
       expect(item["id"]).to eq(items.first.id)
     end
-#
+
     it "can find item by unit price" do
       items = create_list(:item, 3)
-      unit_price= "1.00"
-      get "/api/v1/items/find?unit_price=#{unit_price}"
+      get "/api/v1/items/find?unit_price=#{items.first.unit_price}"
 
       expect(response).to be_success
 
@@ -47,7 +46,7 @@ RSpec.describe "Items find API" do
 
       expect(item["id"]).to eq(items.first.id)
     end
-#
+
   it "can find all items by created_at" do
     create(:merchant, id: 1)
     item1 = Item.create(name: "item1", description: "This is item 1", unit_price: 1200, created_at: "2017-05-01 18:06:59", updated_at: "2017-05-01 18:06:59", merchant_id: 1)

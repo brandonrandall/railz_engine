@@ -26,4 +26,13 @@ class Merchant < ApplicationRecord
       .where(invoices: {created_at: date})
       .sum('invoice_items.unit_price * invoice_items.quantity')
   end
+
+  def favorite_customer
+    Customer.joins(:transactions)
+            .merge(Transaction.successful)
+            .where(invoices: {merchant_id: id})
+            .group('customers.id')
+            .order("count(customers.id) desc")
+            .first
+  end
 end

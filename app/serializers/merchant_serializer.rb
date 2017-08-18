@@ -5,4 +5,8 @@ class MerchantSerializer < ActiveModel::Serializer
 
   end
 
+  def favorite_customer
+    object
+  end
+
 end

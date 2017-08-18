@@ -32,10 +32,18 @@ RSpec.describe Item, type: :model do
   describe 'class methods' do
     describe '.most_items' do
       it "should return the top x items by number sold" do
+
         item = create(:item)
-        invoice_1 = create(:invoice, created_at: "2012-03-22T03:55:09.000Z")
-        transactions_1 = create_list(:transaction, 3, invoice_id: invoice_1.id)
-        invoice_items = create_list(:invoice_item, 3, item_id: item.id, invoice_id: invoice_1.id, quantity: 1)
+        invoice_1 = create(:invoice,
+                            created_at: "2012-03-22T03:55:19.000Z")
+        transactions_1 = create_list(:transaction,
+                                      3,
+                                      invoice_id: invoice_1.id)
+        invoice_items = create_list(:invoice_item,
+                                      3,
+                                      item_id: item.id,
+                                      invoice_id: invoice_1.id,
+                                      quantity: 1)
 
         item2 = create(:item)
         invoice_2 = create(:invoice, created_at: "2012-03-22T03:55:09.000Z")
@@ -43,12 +51,12 @@ RSpec.describe Item, type: :model do
         invoice_items = create_list(:invoice_item, 3, item_id: item2.id, invoice_id: invoice_2.id, quantity: 100000)
 
         item3 = create(:item)
-        invoice_3 = create(:invoice, created_at: "2012-03-22T03:55:09.000Z")
+        invoice_3 = create(:invoice, created_at: "2012-03-22T03:55:29.000Z")
         transactions_3 = create_list(:transaction, 3, invoice_id: invoice_3.id)
-        invoice_items = create_list(:invoice_item, 3, item_id: item.id, invoice_id: invoice_3.id, quantity: 4)
+        invoice_items = create_list(:invoice_item, 3, item_id: item3.id, invoice_id: invoice_3.id, quantity: 4)
 
         result = Item.most_items(3)
-
+        # binding.pry
         expect(result).to include item2
       end
     end
